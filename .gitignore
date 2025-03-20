@@ -1,0 +1,37 @@
+# hidden file of cached metadata when used to browse folders
+.DS_Store
+Thumbs.db
+
+#VS Code workspace file
+.VSCode
+
+# Ignore Azure Functions artifacts
+.funcignore
+
+#Azure Functions environment variables
+local.settings.json
+
+#Python dotenv file
+.env
+
+# Ignore Python virtual environment
+venv/
+
+# Ignore Azurite local storage files
+AzuriteConfig
+__azurite_db_blob__.json
+__azurite_db_blob_extent__.json
+__azurite_db_queue__.json
+__azurite_db_queue_extent__.json
+__azurite_db_table__.json
+__blobstorage__/
+__queuestorage__/
+
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+.python_packages
+.venv
