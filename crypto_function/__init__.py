@@ -6,12 +6,16 @@ import requests
 import mysql.connector
 import azure.functions as func
 
+logging.info("Importing libraries complete.")
+
 
 def main(myTimer: func.TimerRequest) -> None:
     logging.info("Azure Function started.")
 
     # Get execution time
-    execution_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    # execution_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    
+    logging.info(f"API key: {os.getenv("COINMARKETCAP_API_KEY")}")
 
     # Fetch Bitcoin price from CoinMarketCap API
     url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
@@ -25,6 +29,7 @@ def main(myTimer: func.TimerRequest) -> None:
     data = response.json()
 
     if "data" in data and "BTC" in data["data"]:
+        logging.info("BTC data retrieved.")
         price = data["data"]["BTC"]["quote"]["USD"]["price"]
         last_updated_iso = data["data"]["BTC"]["quote"]["USD"][
             "last_updated"
@@ -39,8 +44,6 @@ def main(myTimer: func.TimerRequest) -> None:
             last_updated_iso, "%Y-%m-%dT%H:%M:%S.%fZ"
         )
 
-        logging.info(f"BTC Price: ${price:.2f} at {last_updated}")
-
         # Connect to Azure MySQL Database
         try:
             conn = mysql.connector.connect(
@@ -50,6 +53,9 @@ def main(myTimer: func.TimerRequest) -> None:
                 database=os.getenv("MYSQL_DATABASE"),
                 port=os.getenv("MYSQL_PORT"),
             )
+            logging.info("database: %s", os.getenv("MYSQL_DATABASE"))
+            logging.info("Connected to MySQL database.")
+
             cursor = conn.cursor()
 
             query = """
