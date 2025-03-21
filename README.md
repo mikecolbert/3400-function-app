@@ -109,4 +109,7 @@ Sample local.settings.json
 
 ### Setting environment variables for your Azure Function app
 
-\
+From your function app left menu, choose **Settings** then **Environment variables**
+If Linux deployment
+`SCM_DO_BUILD_DURING_DEPLOYMENT` : true
+`ENABLE_ORYX_BUILD` : true
