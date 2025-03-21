@@ -14,8 +14,8 @@ def main(myTimer: func.TimerRequest) -> None:
 
     # Get execution time
     # execution_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-    
-    logging.info(f"API key: {os.getenv("COINMARKETCAP_API_KEY")}")
+    api_key = os.getenv("COINMARKETCAP_API_KEY")
+    logging.info(f"API key: {api_key}")
 
     # Fetch Bitcoin price from CoinMarketCap API
     url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
